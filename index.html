@@ -40,10 +40,11 @@ body {
         var scoreText;
 		var greenEnemyLaunchTimer;
 		var gameOver;
-        
+		
 		var ACCLERATION = 600;
 		var DRAG = 400;
 		var MAXSPEED = 400;
+        
 		
 		function preload() {
 			
@@ -78,7 +79,7 @@ body {
 			
 			//  The hero!
 			player = game.add.sprite(100, game.height / 2, 'ship');
-            player.health = 100
+            player.health = 100;
 			player.anchor.setTo(0.5, 0.5);
 			game.physics.enable(player, Phaser.Physics.ARCADE);
 			player.body.maxVelocity.setTo(MAXSPEED, MAXSPEED);
@@ -102,22 +103,21 @@ body {
     			//greenEnemies.setAll('scale.x', 0.5);
     			//greenEnemies.setAll('scale.y', 0.5);
     			//greenEnemies.setAll('angle', 180);
-			greenEnemies.forEach(function(enemy){
-        		addEnemyEmitterTrail(enemy);
-				enemy.body.setSize(enemy.width * 3 / 4, enemy.height * 3 / 4);
-                enemy.damageAmount = 20;
-        		enemy.events.onKilled.add(function(){
-				   enemy.trail.kill();
-			   });
-    		});    
+				greenEnemies.forEach(function(enemy){
+        			addEnemyEmitterTrail(enemy);
+					enemy.body.setSize(enemy.width * 3 / 4, enemy.height * 3 / 4);
+                	enemy.damageAmount = 20;
+        			enemy.events.onKilled.add(function(){
+				    	enemy.trail.kill();
+			  	 	});
+    			});    
+                
     			game.time.events.add(1000, launchGreenEnemy);
 			
 			
 			//  And some controls to play the game with
 			cursors = game.input.keyboard.createCursorKeys();
 			fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            
-            
 			
 			//  Add an emitter for the ship's trail
 			shipTrail = game.add.emitter(player.x - 20, player.y, 400);
@@ -141,29 +141,30 @@ body {
     			explosions.forEach( function(explosion) {
         			explosion.animations.add('explosion');
     			});
-			
-			
-          //  Shields stat
+                
+                //  Shields stat
 			shields = game.add.bitmapText(game.world.width - 300, 10, 'font', '' + player.health +'%', 40);
 			shields.render = function () {
 			shields.text = 'Shield: ' + Math.max(player.health, 0) +'%';
 			};
 			shields.render();
             
-            //  Score
+            	//  Score
     		scoreText = game.add.text(10, 10, '', { font: '20px Arial', fill: '#fff' });
     		scoreText.render = function () {
         	scoreText.text = 'Score: ' + score;
             };
     		scoreText.render();
                 
-          //  Game over text
-            gameOver =game.add.bitmapText(gme.world.centerX,game.world.centerY,'font', 'GAME OVER!', 110);		               gameOver.x = gameOver.x - gameOver.textWidth / 2;
+          		//  Game over text
+            gameOver =game.add.bitmapText(gme.world.centerX,game.world.centerY,'font', 'GAME OVER!', 110);		               		 gameOver.x = gameOver.x - gameOver.textWidth / 2;
 	    	gameOver.y = gameOver.y - gameOver.textHeight / 3;
 		    gameOver.visible = false;
                 
-        }
-        
+                
+			
+			
+		}
 		
 		function update() {
 			//  Scroll the background
@@ -213,7 +214,7 @@ body {
 			    game.physics.arcade.overlap(greenEnemies, bullets, hitEnemy, null, this);	
                 
                 
-            //  Game over?
+           //  Game over?
    				 if (! player.alive && gameOver.visible === false) {
         			gameOver.visible = true;
                     gameOver.alpha = 0;
@@ -231,9 +232,9 @@ body {
               			restart();
                         }
                     }
-                 }
-            
-        }
+                 }     
+                
+          	  }
 		
 		
 		function render() {
@@ -301,8 +302,7 @@ body {
 				
     			// } 
    			 //  Send another enemy soon
-          		 greenEnemyLaunchTimer = game.time.events.add(game.rnd.integerInRange(greenEnemySpacing, 					 greenEnemySpacing + 1000), launchGreenEnemy);
- 
+          			greenEnemyLaunchTimer =  game.time.events.add(game.rnd.integerInRange(greenEnemySpacing, greenEnemySpacing + 1000), launchGreenEnemy);
 				}
 		
 		
@@ -327,9 +327,11 @@ body {
     			explosion.play('explosion', 30, false, true);
     			enemy.kill();
                 
-                player.damage(enemy.damageAmount);
-    			shields.render();
-			}
+                //dont forget to ADD!
+                //player.damage(enemy.damageAmount);
+    			//shields.render();
+                
+                }
 		
 			function hitEnemy(enemy, bullet) {
     			var explosion = explosions.getFirstExists(false);
@@ -339,33 +341,31 @@ body {
     			explosion.play('explosion', 30, false, true);
     			enemy.kill();
     			bullet.kill()
-                // Increase score
-    			score += enemy.damageAmount * 10;
-    			scoreText.render()
                 
+                //dont forget to ADD!
+                // Increase score
+    			//score += enemy.damageAmount * 10;
+    			//scoreText.render()
 			}
-            
+			
             function restart () {
     		//  Reset the enemies
    		        greenEnemies.callAll('kill');
     			game.time.events.remove(greenEnemyLaunchTimer);
     			game.time.events.add(1000, launchGreenEnemy);
-
     		//  Revive the player
     			player.revive();
     			player.health = 100;
     			shields.render();
     			score = 0;
     			scoreText.render();
-
     		//  Hide the text
     			gameOver.visible = false;
-
 			}
-			
 		
 		
 		
 	</script>
 </body>
 </html>
+
