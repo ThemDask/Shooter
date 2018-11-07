@@ -63,6 +63,10 @@ body {
 		
 		function create() {
 			
+			music = game.add.audio('music');
+			music.play();
+			music.volume = 0.5;
+			
 			game.scale.pageAlignHorizontally = true;
 			
 			//  The scrolling starfield background
