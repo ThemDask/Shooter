@@ -58,6 +58,7 @@ body {
 			game.load.image('ship', 'assets/ship.png');
 			game.load.image('bullet', 'assets/bullets/bullet.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
+			game.load.audio('music','assets/theme.mp3');
 		}
 		
 		function create() {
@@ -267,6 +268,9 @@ body {
 							BULLET_SPEED, bullet.body.velocity);
 					bullet.body.velocity.y += player.body.velocity.y;
 					bulletTimer = game.time.now + BULLET_SPACING;
+					var audio = new Audio('assets/shoot.wav');
+            				audio.play()
+					audio.volume=0.2
 				}
 			}
 		}
@@ -326,6 +330,9 @@ body {
     			explosion.alpha = 0.7;
     			explosion.play('explosion', 30, false, true);
     			enemy.kill();
+			var audio = new Audio('assets/explosion.wav');
+				audio.play()
+				audio.volume = 0.2	
                 
                 //dont forget to ADD!
                 //player.damage(enemy.damageAmount);
@@ -341,6 +348,10 @@ body {
     			explosion.play('explosion', 30, false, true);
     			enemy.kill();
     			bullet.kill()
+			var audio = new Audio('assets/explosion.wav');
+				audio.play()
+				audio.volume = 0.2	
+				
                 
                 //dont forget to ADD!
                 // Increase score
