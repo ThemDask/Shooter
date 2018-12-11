@@ -58,6 +58,7 @@ body {
 			game.load.image('ship', 'assets/fighter.png');
 			game.load.image('bullet', 'assets/bullets/bullet.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
+            game.load.bitmapFont('newfont', '/assets/spacefont/newfont.png', '/assets/spacefont/newfont.xml');  
 			game.load.audio('music','assets/theme.mp3');
 		}
 		
@@ -148,22 +149,23 @@ body {
     			});
                 
                 //  Shields stat
-			shields = game.add.bitmapText(game.world.width - 300, 10, 'font', '' + player.health +'%', 40);
+			shields = game.add.bitmapText(game.world.width - 250, 10, 'newfont', '' +    player.health +'%', 40);
 			shields.render = function () {
 			shields.text = 'Shield: ' + Math.max(player.health, 0) +'%';
 			};
 			shields.render();
             
             	//  Score
-    		scoreText = game.add.text(10, 10, '', { font: '20px Arial', fill: '#fff' });
-    		scoreText.render = function () {
+    		scoreText = game.add.bitmapText(10, 10, 'newfont', '', 50);
+            scoreText.render = function () {
         	scoreText.text = 'Score: ' + score;
             };
     		scoreText.render();
                 
           		//  Game over text
-            gameOver =game.add.bitmapText(gme.world.centerX,game.world.centerY,'font', 'GAME OVER!', 110);		               		 gameOver.x = gameOver.x - gameOver.textWidth / 2;
-	    	gameOver.y = gameOver.y - gameOver.textHeight / 3;
+		    gameOver = game.add.bitmapText(game.world.centerX, game.world.centerY, 'newfont', 'GAME OVER!', 110);
+		    gameOver.x = gameOver.x - gameOver.textWidth / 2;
+		    gameOver.y = gameOver.y - gameOver.textHeight / 3;
 		    gameOver.visible = false;
                 
                 
@@ -357,10 +359,10 @@ body {
 				audio.volume = 0.2	
 				
                 
-                //dont forget to ADD!
+                
                 // Increase score
-    			//score += enemy.damageAmount * 10;
-    			//scoreText.render()
+    			score += enemy.damageAmount * 10;
+    			scoreText.render()
 			}
 			
             function restart () {
@@ -368,12 +370,14 @@ body {
    		        greenEnemies.callAll('kill');
     			game.time.events.remove(greenEnemyLaunchTimer);
     			game.time.events.add(1000, launchGreenEnemy);
+                
     		//  Revive the player
     			player.revive();
     			player.health = 100;
     			shields.render();
     			score = 0;
     			scoreText.render();
+                
     		//  Hide the text
     			gameOver.visible = false;
 			}
@@ -383,4 +387,3 @@ body {
 	</script>
 </body>
 </html>
-
