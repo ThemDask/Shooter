@@ -64,7 +64,7 @@ body {
 			game.load.image('bullet', 'assets/bullets/bullet.png');
             		game.load.image('blueEnemyBullet', '/assets/enemy-blue-bullet.png');
 			game.load.spritesheet('explosion', '/assets/explode.png', 128, 128);
-            		game.load.bitmapFont('newfont', '/assets/spacefont/newfont.png', '/assets/spacefont/newfont.xml');  
+            		game.load.bitmapFont('newfont', '/assets/spacefont/starfont.png', '/assets/spacefont/starfont.xml');  
 			game.load.audio('music','assets/theme.mp3');
 			}
 		
@@ -188,14 +188,14 @@ body {
     			});
                 
                		//  Shields stat
-			shields = game.add.bitmapText(game.world.width - 300, 10, 'newfont', '' + player.health +'%', 50);
+			shields = game.add.bitmapText(game.world.width - 300, 10, 'starfont', '' + player.health +'%', 50);
 			shields.render = function () {
-			shields.text = 'Shield: ' + Math.max(player.health, 0) +'%';
+			shields.text = 'Shields: ' + Math.max(player.health, 0) +'%';
 			};
 			shields.render();
             
             	//  Score
-    		scoreText = game.add.bitmapText(10, 10, 'newfont', '', 50);
+    		scoreText = game.add.bitmapText(10, 10, 'starfont', '', 50);
             	scoreText.render = function () {
         	scoreText.text = 'Score: ' + score;
             	};
@@ -287,8 +287,10 @@ body {
                 
 	        }
 		
+		//maybe add later?
 		
-		function render() {
+		
+		//function render() {
 			
 			// for (var i = 0; i < greenEnemies.length; i++)
     			// {
@@ -296,7 +298,7 @@ body {
     			// }
     			// game.debug.body(player);
 			
-		}
+		//}
 		
 		function fireBullet() {
 			
