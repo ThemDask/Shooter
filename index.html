@@ -188,14 +188,14 @@ body {
     			});
                 
                		//  Shields stat
-			shields = game.add.bitmapText(game.world.width - 300, 10, 'starfont', '' + player.health +'%', 50);
+			shields = game.add.bitmapText(game.world.width - 300, 10, 'newfont', '' + player.health +'%', 50);
 			shields.render = function () {
 			shields.text = 'Shields: ' + Math.max(player.health, 0) +'%';
 			};
 			shields.render();
             
             	//  Score
-    		scoreText = game.add.bitmapText(10, 10, 'starfont', '', 50);
+    		scoreText = game.add.bitmapText(10, 10, 'newfont', '', 50);
             	scoreText.render = function () {
         	scoreText.text = 'Score: ' + score;
             	};
@@ -471,6 +471,7 @@ body {
                 // Increase score
     			score += enemy.damageAmount * 10;
     			scoreText.render();
+				
     			//  Pacing
     			//  Enemies come quicker as score increases
     			greenEnemySpacing *= 0.9;
